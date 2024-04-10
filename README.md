@@ -1,8 +1,8 @@
 <h1>Dynamic Table Rows Registration Form</h1>
-<p>his HTML document demonstrates a registration form with the functionality to dynamically add or delete table rows using jQuery.</p>T
+<p>his HTML document demonstrates a registration form with the functionality to dynamically add or delete table rows using jQuery.</p>
 
 <h2>Description</h2>
-<p>The registration form allows users to input their personal information including first name, last name, gender, date of birth, age, phone number, email ID, and ID. It validates the form fields using jQuery Validation plugin and dynamically adds the user data to a table upon registration. Users can also delete rows from the table as needed.</p>T
+<p>The registration form allows users to input their personal information including first name, last name, gender, date of birth, age, phone number, email ID, and ID. It validates the form fields using jQuery Validation plugin and dynamically adds the user data to a table upon registration. Users can also delete rows from the table as needed.</p>
 
 ![SNAP_form](https://github.com/akanshakaduskar/Responsive_Form/assets/156501496/9c1636d9-c826-4464-8870-217d8309b9cd)
 
