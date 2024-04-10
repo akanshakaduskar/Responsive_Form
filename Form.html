@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>jQuery Dynamically Add or Delete Table Rows</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"> </script>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: rgb(225, 217, 175);
+        }
+
+        table.TableAddDelete {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table.TableAddDelete th,
+        table.TableAddDelete td {
+            border: 1px solid #cdcdcd;
+            padding: 7px;
+        }
+
+        .input_container {
+            padding: 16px;
+            background-color: white;
+        }
+
+        table,
+        td,
+        th {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 20px;
+
+        }
+
+        th {
+            background-color: #f6c655;
+        }
+
+        tr {
+            background-color: #e3dec0;
+        }
+
+        label.error {
+            color: red;
+            font-size: 1rem;
+            display: block;
+            margin-top: 5px;
+        }
+
+        input.error {
+            border: 1px dashed red;
+            font-weight: 300;
+            color: red;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('.lbl').hide();
+            $("#formValidation").validate();
+            $('.btnrowAddDelete').click(function () {
+                if ($(this).val().length === 0) {
+                } else {
+                    $("#formValidation").submit();
+                }
+
+                //Validation code
+                if ($('input[name="firstname"]').val() == '') {
+                    $('#lblfirstname').show();
+                    return 0;
+                }
+                else { }
+                if ($('input[name="lastname"]').val() == '') {
+                    $('#lbllastname').show();
+                    return 0;
+                }
+                else { }
+                if ($('input[name="dob"]').val() == '') {
+                    $('#lbldob').show();
+                    return 0;
+                }
+                else { }
+
+                if ($('input[name="age"]').val() == '') {
+                    $('#lblage').text('* This field is required.');
+                    $('#lblage').show();
+                    return 0;
+                }
+                else if ($('input[name="age"]').val() < 20 || $('input[name="age"]').val() > 50) {
+                    $('#lblage2').text('* The age must be greater than 40 and less than 100.');
+                    $('#lblage2').show();
+                    return 0;
+                }
+                else { }
+
+                if ($('input[name="phone"]').val() == '') {
+                    $('#lblphone').text('* This field is required.');
+                    $('#lblphone').show();
+                    return 0;
+                }
+                else { }
+
+                if ($('input[name="email"]').val() == '') {
+                    $('#lblemail').show();
+                    return 0;
+                }
+                else { }
+                if ($('input[name="file"]').val() == '') {
+                    $('#lblfile').show();
+                    return 0;
+                }
+                else { }
+
+                //Adding user data to the table
+                var _firstname = $('#firstname').val();
+                var _lastname = $('#lastname').val();
+                var _gender = $('input[name="gender"]:checked').val();
+                var _dob = $('#dob').val();
+                var _age = $('#age').val();
+                var _phone = $('#phone').val();
+                var _email = $('#email').val();
+                var _file = $('#file').val();
+
+                $('.TableAddDelete tbody').append("<tr><td>" + _firstname + "</td><td>" + _lastname + "</td><td>" + _gender + "</td><td>" + _dob + "</td><td>" + _age + "</td><td>" + _phone + "</td><td>" + _email + "</td><td>" + _file + "</td><td><button type='button' class='btndeleterowadded btn'>X</button></td></tr>");
+
+
+                //Emptying text values and hiding validations after form submit
+                $('input[type=text]').each(function () {
+                    $(this).val('');
+                    $('#lblfirstname').hide();
+                    $('#lbllastname').hide();
+                });
+                $('input[type=date]').each(function () {
+                    $(this).val('');
+                    $('#lbldob').hide();
+                });
+                $('input[type=number]').each(function () {
+                    $(this).val('');
+                    $('#lblage').hide();
+                    $('#lblage2').hide();
+                });
+                $('input[type=email]').each(function () {
+                    $(this).val('');
+                });
+                $('#file').each(function () {
+                    $(this).val('');
+                });
+                $('input[type=radio]').each(function () {
+                    $("input:radio[name=gender]:checked")[0].checked = false;
+                });
+
+            });
+
+            $(document).on('click', 'button.btndeleterowadded', function () {
+                $(this).closest('tr').remove();
+                return false;
+
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <div class="input_container">
+        <fieldset>
+
+            <legend>
+                <h1>Registration Form</h1>
+            </legend>
+            <form method="post" id="formValidation">
+                <div style="display: flex;">
+                    <label>
+                        First Name:
+                    </label>
+                    <input style="margin-left: 50px; height: 20px;"
+                        onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"
+                        name="firstname" autofocus="autofocus" minlength="2" type="text" id="firstname"
+                        class="txtTeamAddDelete" placeholder="Enter First Name" required />
+                    <label style="color: red; margin-left:7px;" class="lbl" id="lblfirstname">* This field is
+                        required</label>
+
+                    <label style="margin-left: 70px;">
+                        Last Name:
+                    </label>
+                    <input style="margin-left: 20px;height: 20px;"
+                        onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"
+                        name="lastname" autofocus="autofocus" minlength="2" type="text" id="lastname"
+                        class="txtTeamAddDelete" placeholder="Enter Last Name" required />
+                    <label style="color: red; margin-left:7px;" class="lbl" id="lbllastname">* This field is
+                        required</label>
+                </div>
+            </form></br>
+            <div style="display: flex; align-items: middle; ">
+                GENDER :
+                <div><input type="radio" name="gender" autofocus="autofocus" value="male" /> MALE <br /><br />
+                </div>
+                <div><input type="radio" name="gender" autofocus="autofocus" value="female" /> FEMALE
+                    <br /><br />
+                </div>
+            </div>
+            <label>
+                Date of Birth :
+            </label>
+            <input type="date" style="margin-left: 32px;" id="dob" autofocus="autofocus" name="dob"
+                placeholder="Enter date of birth" required />
+            <label style="color: red; margin-left:7px;" class="lbl" id="lbldob">* This field is required</label>
+            <br /><br />
+            <div style="display: flex;">
+                <label>
+                    Age :
+                </label>
+                <input type="number" id="age" min="50" max="80" autofocus="autofocus" name="age" minlength="1"
+                    style="height: 20px; width: 110px; margin-left: 97px;" placeholder="Enter your age" required />
+                <br /><br />
+                <label style="color: red; margin-left:10px;" class="lbl" id="lblage"></label>
+                <label style="color: red; margin-left:10px;" class="lbl" id="lblage2"></label>
+            </div>
+            <label>
+                Phone Number :
+            </label>
+            <input type="text" id="phone" pattern="[0-9]{10}"
+                onkeydown="return (! (event.keyCode>=65) && event.keyCode!=32);" minlength="10" maxlength="10"
+                name="phone" autofocus="autofocus" style="height: 20px; margin-left: 14px;"
+                placeholder="Enter your Phone number" required />
+            <label style="color: red; margin-left:7px;" class="lbl" id="lblphone"></label>
+            <br /><br />
+            <div style="display: flex;">
+                <label>
+                    Email ID :
+                </label>
+                <input type="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" autofocus="autofocus"
+                    style="height: 20px; margin-left: 65px;" name="email" placeholder="Enter your Email ID" required />
+                <br /><br />
+                <label style="color: red; margin-left:11px;" class="lbl" id="lblemail">* This field is required</label>
+            </div>
+            <label>
+                ID :
+            </label>
+            <input type="file" id="file" style="margin-left: 106px;" name="file" accept=".pdf" autofocus="autofocus" />
+            <label style="color: red; margin-left:-70px;" class="lbl" id="lblfile">* This field is required</label>
+            <br /><br />
+            <button type="button" style="height: 20px;" class="btnrowAddDelete">REGISTER</button> </br></br>
+            </form>
+        </fieldset>
+
+    </div>
+    <table class="TableAddDelete">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>Date of Birth</th>
+                <th>Age</th>
+                <th>Phone number</th>
+                <th>Email ID</th>
+                <th>ID</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</body>
+
+</html>
